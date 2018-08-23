@@ -16,6 +16,7 @@
 
 package com.example.android.bluetoothlegatt;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.ListActivity;
 import android.bluetooth.BluetoothAdapter;
@@ -37,6 +38,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import kr.co.namee.permissiongen.PermissionGen;
 
 /**
  * Activity for scanning and displaying available Bluetooth LE devices.
@@ -76,6 +79,13 @@ public class DeviceScanActivity extends ListActivity {
             finish();
             return;
         }
+
+        PermissionGen.with(this)
+                .addRequestCode(100)
+                .permissions(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION)
+                .request();
     }
 
     @Override
